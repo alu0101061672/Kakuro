@@ -7,12 +7,14 @@ check_rows([],[],_,_).
 check_rows([[V1|VALS]|OTHER], SUMS, AC ,ND):- selecciona(V1,ND,ND2),NAC is AC + V1,check_rows([VALS|OTHER],SUMS,NAC,ND2).
 
 check_rows([[V1|VALS]|OTHER], SUMS, 0,ND):- nonvar(V1), V1 == 0 ,check_rows([VALS|OTHER],SUMS,0,ND).
-check_rows([[V1|VALS]|OTHER], [S1|SUMS], S1,_):- nonvar(V1), V1 == 0 ,check_rows([VALS|OTHER],SUMS,0,[1,2,3,4,5,6,7,8,9]).
+check_rows([[V1|VALS]|OTHER], [S1|SUMS], S1,_):- nonvar(V1), V1 == 0 ,check_rows([VALS|OTHER],SUMS,0,[1,2,3,4,5,6,7,8,9]), S1 \== 0.
 
 check_rows([[]|OTHER], SUMS, 0,ND):- check_rows(OTHER,SUMS,0,ND).
-check_rows([[]|OTHER], [S1|SUMS], S1,_):- check_rows(OTHER,SUMS,0,[1,2,3,4,5,6,7,8,9]).
+check_rows([[]|OTHER], [S1|SUMS], S1,_):- check_rows(OTHER,SUMS,0,[1,2,3,4,5,6,7,8,9]), S1 \== 0.
 
 %kakuro([[9,5,0,0,3,9],[8,2,0,8,1,2],[2,1,3,9,0,0],[0,0,1,4,2,7],[1,4,2,0,1,3],[7,8,0,0,8,9]],[14,12,10,11,15,14,7,4,15,17],[19,8,8,12,6,21,4,11,11,19]).
+
+%kakuro([[0,A,B,0,0],[C,D,E,F,0],[G,H,0,I,J],[0,K,L,M,N],[0,0,P,O,0]],[9,10,12,11,21,13],[13,13,5,17,11,17]).
 
 %kakuro([[0,0,A,B],[0,C,D,E],[F,G,H,0],[I,J,0,0]],[3,7,18,11],[4,21,11,3]).
 %A=1,B=2,C=4,D=2,E=1,F=1,G=9,H=8,I=3,J=8;
