@@ -1,7 +1,7 @@
 selecciona(X,[X|L],L).
 selecciona(X,[Y|L1],[Y|L2]):- selecciona(X,L1,L2).
 
-kakuro(VALS,SUMX,SUMY):-  use_module(library(clpfd)), check_rows(VALS,SUMX,0,[1,2,3,4,5,6,7,8,9]), transpose(VALS,TVALS), check_rows(TVALS,SUMY,0,[1,2,3,4,5,6,7,8,9]).
+kakuro(VALS,SUMX,SUMY):-  use_module(library(clpfd)), check_rows(VALS,SUMX,0,[1,2,3,4,5,6,7,8,9]), transpose(VALS,TVALS), check_rows(TVALS,SUMY,0,[1,2,3,4,5,6,7,8,9]),write_sum(VALS,SUMX,SUMY).
 
 check_rows([],[],_,_).
 check_rows([[V1|VALS]|OTHER], SUMS, AC ,ND):- selecciona(V1,ND,ND2),NAC is AC + V1,check_rows([VALS|OTHER],SUMS,NAC,ND2).
@@ -12,7 +12,16 @@ check_rows([[V1|VALS]|OTHER], [S1|SUMS], S1,_):- nonvar(V1), V1 == 0 ,check_rows
 check_rows([[]|OTHER], SUMS, 0,ND):- check_rows(OTHER,SUMS,0,ND).
 check_rows([[]|OTHER], [S1|SUMS], S1,_):- check_rows(OTHER,SUMS,0,[1,2,3,4,5,6,7,8,9]), S1 \== 0.
 
-%kakuro([[9,5,0,0,3,9],[8,2,0,8,1,2],[2,1,3,9,0,0],[0,0,1,4,2,7],[1,4,2,0,1,3],[7,8,0,0,8,9]],[14,12,10,11,15,14,7,4,15,17],[19,8,8,12,6,21,4,11,11,19]).
+imprimir([]):-nl.
+imprimir([0|A]):-write('-'),tab(1),imprimir(A).
+imprimir([V1|A]):-V1 \== 0, write(V1),tab(1), imprimir(A).
+imprimir_matrix([]).
+imprimir_matrix([A|VALS]):-[A|VALS] \== [] ,tab(1),imprimir(A),nl,imprimir_matrix(VALS).
+write_sum(VALS,SUMX,SUMY):-nl,imprimir_matrix(VALS),tab(1),write('X-sum:'),imprimir(SUMX),tab(1),write('Y-sum:'),imprimir(SUMY),nl.
+
+
+% kakuro([[9,5,0,0,3,9],[8,2,0,8,1,2],[2,1,3,9,0,0],[0,0,1,4,2,7],[1,4,2,0,1,3],[7,8,0,0,8,9]],[14,12,10,11,15,14,7,4,15,17],[19,8,8,12,6,21,4,11,11,19]).
+%
 
 %kakuro([[0,A,B,0,0],[C,D,E,F,0],[G,H,0,I,J],[0,K,L,M,N],[0,0,P,O,0]],[9,10,12,11,21,13],[13,13,5,17,11,17]).
 
