@@ -1,12 +1,12 @@
 selecciona(X,[X|L],L).
 selecciona(X,[Y|L1],[Y|L2]):- selecciona(X,L1,L2).
 
-traspuesta_columna([],[],[]).
-traspuesta_columna([[V1|VALS]|OTHER],[V1|C],[VALS|REST]):-traspuesta_columna(OTHER,C,REST).
+columna([],[],[]).
+columna([[V1|VALS]|OTHER],[V1|C],[VALS|REST]):-columna(OTHER,C,REST).
 
 traspuesta([[]|_],[]).
 traspuesta([[V1|VALS]|OTHER],[C|COL]):-
-    traspuesta_columna([[V1|VALS]|OTHER],C,[VALS|REST]),
+    columna([[V1|VALS]|OTHER],C,[VALS|REST]),
     traspuesta([VALS|REST], COL).
 
 kakuro(VALS,SUMX,SUMY):-check_rows(VALS,SUMX,0,[1,2,3,4,5,6,7,8,9]), traspuesta(VALS,TVALS), check_rows(TVALS,SUMY,0,[1,2,3,4,5,6,7,8,9]),write_sum(VALS,SUMX,SUMY).
