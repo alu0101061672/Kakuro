@@ -9,7 +9,7 @@ traspuesta([[V1|VALS]|OTHER],[C|COL]):-
     traspuesta_columna([[V1|VALS]|OTHER],C,[VALS|REST]),
     traspuesta([VALS|REST], COL).
 
-kakuro(VALS,SUMX,SUMY):-check_rows(VALS,SUMX,0,[1,2,3,4,5,6,7,8,9]), traspuesta(VALS,TVALS), check_rows(TVALS,SUMY,0,[1,2,3,4,5,6,7,8,9]),write_sum(VALS,SUMX,SUMY).
+kakuro(VALS,SUMX,SUMY):-check_rows(VALS,SUMX,0,[1,2,3,4,5,6,7,8,9]), traspuesta(VALS,TVALS), check_rows(TVALS,SUMY,0,[1,2,3,4,5,6,7,8,9]),imprimir_kakuro(VALS,SUMX,SUMY).
 
 check_rows([],[],_,_).
 check_rows([[V1|VALS]|OTHER], SUMS, AC ,ND):- selecciona(V1,ND,ND2),NAC is AC + V1,check_rows([VALS|OTHER],SUMS,NAC,ND2).
@@ -25,8 +25,9 @@ imprimir([0|A]):-write('-'),tab(1),imprimir(A).
 imprimir([V1|A]):-V1 \== 0, write(V1),tab(1), imprimir(A).
 imprimir_matrix([]).
 imprimir_matrix([A|VALS]):-[A|VALS] \== [] ,tab(1),imprimir(A),nl,imprimir_matrix(VALS).
-write_sum(VALS,SUMX,SUMY):-nl,imprimir_matrix(VALS),tab(1),write('X-sum:'),imprimir(SUMX),tab(1),write('Y-sum:'),imprimir(SUMY),nl.
+imprimir_kakuro(VALS,SUMX,SUMY):-nl,imprimir_matrix(VALS),tab(1),write('X-sum:'),imprimir(SUMX),tab(1),write('Y-sum:'),imprimir(SUMY),nl.
 
+%Ejemplos:
 
 %kakuro([[9,5,0,0,3,9],[8,2,0,8,1,2],[2,1,3,9,0,0],[0,0,1,4,2,7],[1,4,2,0,1,3],[7,8,0,0,8,9]],[14,12,10,11,15,14,7,4,15,17],[19,8,8,12,6,21,4,11,11,19]).
 
